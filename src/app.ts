@@ -2,12 +2,12 @@ import express, { NextFunction, Request, Response } from "express";
 
 import "express-async-errors";
 import { AppError } from "./error/AppError";
-import { router } from "./routes";
+import { routes } from "./routes";
 
 const app = express();
 
 app.use(express.json());
-app.use(router);
+app.use(routes);
 
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

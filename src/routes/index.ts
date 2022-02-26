@@ -1,9 +1,16 @@
 import { Request, Response, Router } from "express";
 
-const router = Router();
+import { CreateUserController } from "../modules/users/useCase/createUser/createUserController";
 
-router.get("/", (request: Request, response: Response) => {
+const routes = Router();
+
+const createUserController = new CreateUserController();
+
+routes.get("/", (request: Request, response: Response) => {
   response.send("Server On-line!");
 });
 
-export { router };
+//  create a user
+routes.post("/users", createUserController.handle);
+
+export { routes };
