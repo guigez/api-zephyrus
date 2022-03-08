@@ -15,5 +15,51 @@ model Users {
   email String @unique
   name  String
 
+  Sugestions             Sugestions[]
+  Deliveries_client      Deliveries[] @relation("client")
+  Deliveries_deliveryman Deliveries[] @relation("deliveryman")
   @@map("users")
+}
+
+model Orders {
+  id           String  @id @default(uuid())
+  product_name String
+  origin       String
+  destiny      String
+  width        Float
+  height       Float
+  length       Float
+  weight       Float
+  description  String?
+
+  Sugestions Sugestions[]
+  Deliveries Deliveries[]
+  @@map("orders")
+}
+
+model Sugestions {
+  id             String @id @default(uuid())
+  id_deliveryman String
+  deliveryman    Users  @relation(fields: [id_deliveryman], references: [id])
+  id_order       String
+  order          Orders @relation(fields: [id_order], references: [id])
+  price          Float
+
+  @@map("sugestions")
+}
+
+model Deliveries {
+  id             String   @id @default(uuid())
+  id_client      String
+  client         Users    @relation(name: "client", fields: [id_client], references: [id])
+  id_deliveryman String
+  deliveryman    Users    @relation(name: "deliveryman", fields: [id_deliveryman], references: [id])
+  id_order       String
+  order          Orders   @relation(fields: [id_order], references: [id])
+  price          Float
+  status         String
+  created_at     DateTime @default(now())
+  update_at      DateTime @default(now())
+
+  @@map("deliveries")
 }
