@@ -1,5 +1,6 @@
 import { sign } from "jsonwebtoken";
 
+import auth from "../../../../config/auth";
 import { prisma } from "../../../../database/prismaClient";
 
 interface IRequest {
@@ -26,7 +27,7 @@ export class CreateSessionUseCase {
       });
     }
 
-    const token = sign({}, "f0f0421a069a2fd03fbdd364ca62ea5e", {
+    const token = sign({}, auth.secret_token, {
       subject: user?.id,
       expiresIn: "1d",
     });
