@@ -1,16 +1,17 @@
 import { Request, Response, Router } from "express";
 
-import { CreateUserController } from "../modules/users/useCase/createUser/createUserController";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
+import { CreateSessionController } from "../modules/Account/useCase/createSession/createSessionController";
 
 const routes = Router();
 
-const createUserController = new CreateUserController();
+const createSessionController = new CreateSessionController();
 
 routes.get("/", (request: Request, response: Response) => {
   response.send("Server On-line!");
 });
 
-//  create a user
-routes.post("/users", createUserController.handle);
+//  create a session
+routes.post("/session", createSessionController.handle);
 
 export { routes };
