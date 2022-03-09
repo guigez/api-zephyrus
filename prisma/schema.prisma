@@ -24,8 +24,6 @@ model Users {
 model Orders {
   id           String  @id @default(uuid())
   product_name String
-  origin       String
-  destiny      String
   width        Float
   height       Float
   length       Float
@@ -41,8 +39,8 @@ model Sugestions {
   id             String @id @default(uuid())
   id_deliveryman String
   deliveryman    Users  @relation(fields: [id_deliveryman], references: [id])
-  id_order       String
-  order          Orders @relation(fields: [id_order], references: [id])
+  id_delivery    String
+  delivery       Orders @relation(fields: [id_delivery], references: [id])
   price          Float
 
   @@map("sugestions")
@@ -56,8 +54,15 @@ model Deliveries {
   deliveryman    Users    @relation(name: "deliveryman", fields: [id_deliveryman], references: [id])
   id_order       String
   order          Orders   @relation(fields: [id_order], references: [id])
+<<<<<<< Updated upstream
   price          Float
   status         String
+=======
+  origin         String
+  destiny        String
+  price          Float?
+  status         String   @default("available")
+>>>>>>> Stashed changes
   created_at     DateTime @default(now())
   update_at      DateTime @default(now())
 
