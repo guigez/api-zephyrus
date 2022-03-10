@@ -9,8 +9,9 @@ export class ListDeliveriesDeliverymanController {
     const listDeliveriesDeliverymanUseCase =
       new ListDeliveriesDeliverymanUseCase();
 
-    const deliveries = await listDeliveriesDeliverymanUseCase.execute(id);
+    const deliveriesDeliveryman =
+      await listDeliveriesDeliverymanUseCase.execute(id);
 
-    return response.json(deliveries);
+    return response.json({ deliveries: deliveriesDeliveryman });
   }
 }

@@ -8,8 +8,8 @@ export class ListDeliveriesClientController {
 
     const listDeliveriesClientUseCase = new ListDeliveriesClientUseCase();
 
-    const deliveries = await listDeliveriesClientUseCase.execute(id);
+    const deliveriesClient = await listDeliveriesClientUseCase.execute(id);
 
-    return response.json(deliveries);
+    return response.json({ deliveries: deliveriesClient });
   }
 }

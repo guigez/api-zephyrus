@@ -2,18 +2,20 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Users {
-  id    String @id
-  email String @unique
-  name  String
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  id_google String @unique
+  email     String @unique
+  name      String
 
   Sugestions             Sugestions[]
   Deliveries_client      Deliveries[] @relation("client")
@@ -22,7 +24,7 @@ model Users {
 }
 
 model Orders {
-  id           String  @id @default(uuid())
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
   product_name String
   width        Float
   height       Float
@@ -36,10 +38,10 @@ model Orders {
 }
 
 model Sugestions {
-  id             String @id @default(uuid())
-  id_deliveryman String
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  id_deliveryman String @db.ObjectId
   deliveryman    Users  @relation(fields: [id_deliveryman], references: [id])
-  id_delivery    String
+  id_delivery    String @db.ObjectId
   delivery       Orders @relation(fields: [id_delivery], references: [id])
   price          Float
 
@@ -47,12 +49,12 @@ model Sugestions {
 }
 
 model Deliveries {
-  id             String   @id @default(uuid())
-  id_client      String
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  id_client      String   @db.ObjectId
   client         Users    @relation(name: "client", fields: [id_client], references: [id])
-  id_deliveryman String
+  id_deliveryman String   @db.ObjectId
   deliveryman    Users    @relation(name: "deliveryman", fields: [id_deliveryman], references: [id])
-  id_order       String
+  id_order       String   @db.ObjectId
   order          Orders   @relation(fields: [id_order], references: [id])
   origin         String
   destiny        String
