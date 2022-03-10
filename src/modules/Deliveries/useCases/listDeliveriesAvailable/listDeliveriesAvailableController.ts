@@ -12,6 +12,6 @@ export class ListDeliveriesAvailableController {
       id
     );
 
-    return response.json(deliveriesAvailable);
+    return response.json({ deliveries: deliveriesAvailable });
   }
 }
