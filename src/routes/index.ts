@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 
 import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
 import { CreateSessionController } from "../modules/Account/useCases/createSession/createSessionController";
+import { DeliveryController } from "../modules/Deliveries/useCases/delivery/deliveryController";
 import { ListDeliveriesAvailableController } from "../modules/Deliveries/useCases/listDeliveriesAvailable/listDeliveriesAvailableController";
 import { ListDeliveriesClientController } from "../modules/Deliveries/useCases/listDeliveriesClient/listDeliveriesClientController";
 import { ListDeliveriesDeliverymanController } from "../modules/Deliveries/useCases/listDeliveriesDeliveryman/listDeliveriesDeliverymanController";
@@ -23,6 +24,7 @@ const suggestionController = new SuggestionController();
 const suggestionAcceptController = new SuggestionAcceptController();
 const suggestionDeclineController = new SuggestionDeclineController();
 const suggestionAvailableController = new SuggestionAvailableController();
+const deliveryController = new DeliveryController();
 
 routes.get("/", (request: Request, response: Response) => {
   response.send("Server On-line!");
@@ -39,13 +41,19 @@ routes.get(
 );
 
 routes.get(
-  "/deliveries/client",
+  "/deliveries/:id_delivery",
+  ensureAuthenticated,
+  deliveryController.handle
+);
+
+routes.get(
+  "/deliveriesClient",
   ensureAuthenticated,
   listDeliveriesClientController.handle
 );
 
 routes.get(
-  "/deliveries/deliveryman",
+  "/deliveriesDeliveryman",
   ensureAuthenticated,
   listDeliveriesDeliverymanController.handle
 );
@@ -73,4 +81,5 @@ routes.get(
   ensureAuthenticated,
   suggestionAvailableController.handle
 );
+
 export { routes };
