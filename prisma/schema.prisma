@@ -52,8 +52,8 @@ model Deliveries {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   id_client      String   @db.ObjectId
   client         Users    @relation(name: "client", fields: [id_client], references: [id])
-  id_deliveryman String   @db.ObjectId
-  deliveryman    Users    @relation(name: "deliveryman", fields: [id_deliveryman], references: [id])
+  id_deliveryman String?  @db.ObjectId
+  deliveryman    Users?   @relation(name: "deliveryman", fields: [id_deliveryman], references: [id])
   id_order       String   @db.ObjectId
   order          Orders   @relation(fields: [id_order], references: [id])
   origin         String
