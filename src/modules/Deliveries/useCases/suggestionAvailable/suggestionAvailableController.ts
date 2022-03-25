@@ -11,6 +11,6 @@ export class SuggestionAvailableController {
       deliveryId as unknown as string
     );
 
-    return response.json({ suggentions: suggestions });
+    return response.json({ suggestions });
   }
 }

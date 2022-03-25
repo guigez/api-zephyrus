@@ -6,6 +6,9 @@ export class SuggestionAvailableUseCase {
       where: {
         id_delivery: deliveryId,
       },
+      include: {
+        deliveryman: true,
+      },
     });
 
     return suggestions;

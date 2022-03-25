@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 
-import { SuggestionUseCase } from "./suggestionUseCase";
+import { SuggestionCreateUseCase } from "./suggestionCreateUseCase";
 
-export class SuggestionController {
+export class SuggestionCreateController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.user;
     const { deliveryId, priceSuggestion } = request.body;
 
-    const suggestionUseCase = new SuggestionUseCase();
+    const suggestionCreateUseCase = new SuggestionCreateUseCase();
 
     console.log(deliveryId, priceSuggestion);
 
-    const suggestion = await suggestionUseCase.execute({
+    const suggestion = await suggestionCreateUseCase.execute({
       id,
       deliveryId,
       priceSuggestion,

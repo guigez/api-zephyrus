@@ -7,14 +7,9 @@ interface IRequest {
   priceSuggestion: string;
 }
 
-export class SuggestionUseCase {
+export class SuggestionCreateUseCase {
   async execute({ id, deliveryId, priceSuggestion }: IRequest) {
-    // verifica se o entregador é dono da encomenda
-    if (id === deliveryId) {
-      throw new AppError("Encomenda não pode ser entregue por você mesmo");
-    }
-
-    const delivery = prisma.deliveries.findFirst({
+    const delivery = await prisma.deliveries.findFirst({
       where: {
         id: deliveryId,
       },
@@ -22,6 +17,20 @@ export class SuggestionUseCase {
 
     if (!delivery) {
       throw new AppError("Encomenda não encontrada");
+    }
+
+    if (id === delivery.id_client) {
+      throw new AppError("Encomenda não pode ser entregue por você mesmo");
+    }
+
+    const suggestionExist = await prisma.suggestions.findFirst({
+      where: {
+        id_deliveryman: id,
+      },
+    });
+
+    if (suggestionExist) {
+      throw new AppError("Você já sugeriu um valor");
     }
 
     const suggestion = await prisma.suggestions.create({
