@@ -9,8 +9,6 @@ export class SuggestionCreateController {
 
     const suggestionCreateUseCase = new SuggestionCreateUseCase();
 
-    console.log(deliveryId, priceSuggestion);
-
     const suggestion = await suggestionCreateUseCase.execute({
       id,
       deliveryId,

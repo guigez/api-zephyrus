@@ -11,6 +11,7 @@ import { SuggestionAcceptController } from "../modules/Deliveries/useCases/sugge
 import { SuggestionAvailableController } from "../modules/Deliveries/useCases/suggestionAvailable/suggestionAvailableController";
 import { SuggestionCreateController } from "../modules/Deliveries/useCases/suggestionCreate/suggestionCreateController";
 import { SuggestionDeclineController } from "../modules/Deliveries/useCases/suggestionDecline/suggestionDeclineController";
+import { UpdateStatusController } from "../modules/Deliveries/useCases/updateStatus/updateStatusController";
 
 const routes = Router();
 
@@ -27,6 +28,7 @@ const suggestionDeclineController = new SuggestionDeclineController();
 const suggestionAvailableController = new SuggestionAvailableController();
 const deliveryController = new DeliveryController();
 const findClientController = new FindClientController();
+const updateStatusController = new UpdateStatusController();
 
 routes.get("/", (request: Request, response: Response) => {
   response.send("Server On-line!");
@@ -73,13 +75,13 @@ routes.put(
 );
 
 routes.delete(
-  "/deliveries/suggestion/decline",
+  "/deliveries/suggestion/decline/:id",
   ensureAuthenticated,
   suggestionDeclineController.handle
 );
 
 routes.get(
-  "/deliveries/suggestion/:deliveryId",
+  "/deliveries/suggestion/availables/:deliveryId",
   ensureAuthenticated,
   suggestionAvailableController.handle
 );
@@ -88,6 +90,12 @@ routes.get(
   "/client/:id_client",
   ensureAuthenticated,
   findClientController.handle
+);
+
+routes.put(
+  "/delivery/status",
+  ensureAuthenticated,
+  updateStatusController.handle
 );
 
 export { routes };

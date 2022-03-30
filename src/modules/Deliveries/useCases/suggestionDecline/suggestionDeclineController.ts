@@ -4,10 +4,10 @@ import { SuggestionDeclineUseCase } from "./suggestionDeclineUseCase";
 
 export class SuggestionDeclineController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { suggestionId } = request.body;
+    const { id } = request.params;
     const suggestionDeclineUseCase = new SuggestionDeclineUseCase();
-    console.log(suggestionId);
-    const suggestion = await suggestionDeclineUseCase.execute(suggestionId);
+
+    const suggestion = await suggestionDeclineUseCase.execute(id);
 
     return response.json(suggestion);
   }
