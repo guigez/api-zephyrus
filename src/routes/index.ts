@@ -9,6 +9,7 @@ import { ListDeliveriesClientController } from "../modules/Deliveries/useCases/l
 import { ListDeliveriesDeliverymanController } from "../modules/Deliveries/useCases/listDeliveriesDeliveryman/listDeliveriesDeliverymanController";
 import { SuggestionAcceptController } from "../modules/Deliveries/useCases/suggestionAccept/suggestionAcceptController";
 import { SuggestionAvailableController } from "../modules/Deliveries/useCases/suggestionAvailable/suggestionAvailableController";
+import { SuggestionByIdController } from "../modules/Deliveries/useCases/suggestionById/suggestionByIdController";
 import { SuggestionCreateController } from "../modules/Deliveries/useCases/suggestionCreate/suggestionCreateController";
 import { SuggestionDeclineController } from "../modules/Deliveries/useCases/suggestionDecline/suggestionDeclineController";
 import { UpdateStatusController } from "../modules/Deliveries/useCases/updateStatus/updateStatusController";
@@ -29,6 +30,7 @@ const suggestionAvailableController = new SuggestionAvailableController();
 const deliveryController = new DeliveryController();
 const findClientController = new FindClientController();
 const updateStatusController = new UpdateStatusController();
+const suggestionByIdController = new SuggestionByIdController();
 
 routes.get("/", (request: Request, response: Response) => {
   response.send("Server On-line!");
@@ -96,6 +98,12 @@ routes.put(
   "/delivery/status",
   ensureAuthenticated,
   updateStatusController.handle
+);
+
+routes.get(
+  "/suggestion/:id",
+  ensureAuthenticated,
+  suggestionByIdController.handle
 );
 
 export { routes };

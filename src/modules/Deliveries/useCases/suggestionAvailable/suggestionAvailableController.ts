@@ -6,9 +6,9 @@ export class SuggestionAvailableController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { deliveryId } = request.params;
 
-    const suggestionAcceptUseCase = new SuggestionAvailableUseCase();
+    const suggestionAvailableUseCase = new SuggestionAvailableUseCase();
 
-    const suggestions = await suggestionAcceptUseCase.execute(deliveryId);
+    const suggestions = await suggestionAvailableUseCase.execute(deliveryId);
 
     return response.json({ suggestions });
   }
