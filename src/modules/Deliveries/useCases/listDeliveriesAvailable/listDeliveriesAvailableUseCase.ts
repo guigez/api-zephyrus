@@ -7,6 +7,7 @@ export class ListDeliveriesAvailableUseCase {
         id_client: {
           not: id,
         },
+        status: "available",
       },
       include: {
         order: true,

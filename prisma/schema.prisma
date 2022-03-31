@@ -12,10 +12,9 @@ datasource db {
 }
 
 model Users {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  id_google String @unique
-  email     String @unique
-  name      String
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
+  name  String
 
 
   Deliveries_client      Deliveries[]  @relation("client")

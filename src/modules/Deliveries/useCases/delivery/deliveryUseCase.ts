@@ -8,6 +8,7 @@ export class DeliveryUseCase {
       },
       include: {
         order: true,
+        deliveryman: true,
       },
     });
 

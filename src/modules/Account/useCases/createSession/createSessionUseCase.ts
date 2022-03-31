@@ -4,23 +4,21 @@ import auth from "../../../../config/auth";
 import { prisma } from "../../../../database/prismaClient";
 
 interface IRequest {
-  id_google: string;
   email: string;
   name: string;
 }
 
 export class CreateSessionUseCase {
-  async execute({ id_google, email, name }: IRequest) {
+  async execute({ email, name }: IRequest) {
     let user = await prisma.users.findFirst({
       where: {
-        id_google, // id = id
+        email,
       },
     });
 
     if (!user) {
       user = await prisma.users.create({
         data: {
-          id_google,
           email,
           name,
         },
